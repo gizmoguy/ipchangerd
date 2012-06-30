@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Set up environment
+CONF=/etc/ipchangerd.conf
+CACHE_DIR=/var/cache/ipchangerd
+IP_UP_DIR=/etc/ipchangerd.d/ip-up.d
+IP_DOWN_DIR=/etc/ipchangerd.d/ip-down.d
+
+# Read in config
+. $CONF
+
+for n in "${names[@]}"; do
+    # TODO: Handle AAAAs as well
+    curr_ip=`host $n | grep "has address" | sed -e "s/.*\ //"`
+
+    magic_file=$CACHE_DIR/$n
+
+    if [ ! -f "$magic_file" ]; then
+        # Write out IP address to cache file if we don't know this host
+        echo $curr_ip > $magic_file
+    else
+        # Grab old IP address and compare
+        old_ip=`cat $magic_file`
+
+        if [ "$curr_ip" != "$old_ip" ]; then
+            echo "$n: IP has changed"
+            # Call down script
+            . $IP_DOWN_DIR/$n
+            # Call up script
+            . $IP_UP_DIR/$n
+            echo $curr_ip > $magic_file
+        fi
+    fi
+done
