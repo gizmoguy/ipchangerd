@@ -14,20 +14,20 @@ all: install
 install-bin:
 
 	install -D --group=root --mode=755 --owner=root \
-		bin/$(PKGNAME) $(BINDIR)/$(PKGNAME)
+		bin/$(PKGNAME) $(DESTDIR)$(BINDIR)/$(PKGNAME)
 
 	install -d --group=nogroup --mode=755 --owner=nobody \
-		$(CACHEDIR)/$(PKGNAME)
+		$(DESTDIR)$(CACHEDIR)/$(PKGNAME)
 
 install-conf:
 
 	install -D --group=root --mode=644 --owner=root \
-		etc/$(PKGNAME).conf $(ETCDIR)/$(PKGNAME).conf
+		etc/$(PKGNAME).conf $(DESTDIR)$(ETCDIR)/$(PKGNAME).conf
 
 	install -d --group=root --mode=755 --owner=root \
-		$(CONFDIR)/ip-up.d
+		$(DESTDIR)$(CONFDIR)/ip-up.d
 
 	install -d --group=root --mode=755 --owner=root \
-		$(CONFDIR)/ip-down.d
+		$(DESTDIR)$(CONFDIR)/ip-down.d
 
 install: install-bin install-conf
