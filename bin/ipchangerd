@@ -13,7 +13,7 @@ for n in "${names[@]}"; do
     # TODO: Handle AAAAs as well
     curr_ip=`host $n | grep "has address" | sed -e "s/.*\ //"`
 
-    if [ $? -gt 0 ]; then
+    if [ ${PIPESTATUS[0]} -gt 0 ]; then
         continue
     fi
 
