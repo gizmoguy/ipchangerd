@@ -4,4 +4,4 @@
 
 MAILTO=root
 
-*/5 * * * *     root if [ -x /usr/bin/ipchangerd ]; then /usr/bin/ipchangerd; fi
+*/5 * * * *     root if [ -x /usr/bin/ipchangerd ]; then /usr/bin/ipchangerd > /dev/null; fi
