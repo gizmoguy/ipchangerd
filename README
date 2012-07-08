@@ -13,4 +13,5 @@ a machine loses its previous IP address, an up script can be added to
 new IP address. Replace SERVERNAME with the actual name of the server like
 defined in ipchangerd.conf. Up and down scripts must have the executable bit
 set to be executed by ipchangerd so simple remove the executable bit if you
-to disable a particular script.
+to disable a particular script. The down and up scripts are both called with
+the IP address they are working with on the first argument.
