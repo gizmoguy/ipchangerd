@@ -11,13 +11,13 @@ IP_DOWN_DIR=/etc/ipchangerd.d/ip-down.d
 
 for n in "${names[@]}"; do
     # TODO: Handle AAAAs as well
-    host_output=`host $n`
+    host_output=`host $n | grep "has address"`
 
     if [ $? -gt 0 ]; then
         continue
     fi
 
-    curr_ip=`echo $host_output | grep "has address" | sed -e "s/.*\ //"`
+    curr_ip=`echo $host_output | sed -e "s/.*\ //"`
 
     magic_file=$CACHE_DIR/$n
 
