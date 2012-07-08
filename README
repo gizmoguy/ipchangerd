@@ -1,0 +1,16 @@
+This is a simple script that monitors for IP address changes of configured
+machines and then runs customisable actions for each machine when an IP
+address change is detected.
+
+Every 5 minutes ipchangerd is run via cron as root and as a result all down and
+up scripts will also be run as root.
+
+To configure ipchangerd first add the names of all machines to monitor for IP
+changes to the names array in /etc/ipchangerd.conf. Then you can add a down
+script to /etc/ipchangerd.d/ip-down.d/SERVERNAME which will be executed when
+a machine loses its previous IP address, an up script can be added to
+/etc/ipchangerd.d/ip-up.d/SERVERNAME which will be run when a machine gains a
+new IP address. Replace SERVERNAME with the actual name of the server like
+defined in ipchangerd.conf. Up and down scripts must have the executable bit
+set to be executed by ipchangerd so simple remove the executable bit if you
+to disable a particular script.
