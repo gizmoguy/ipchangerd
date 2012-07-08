@@ -31,9 +31,9 @@ for n in "${names[@]}"; do
         if [ "$curr_ip" != "$old_ip" ]; then
             echo "$n: IP has changed"
             # Call down script
-            [ -x "$IP_DOWN_DIR/$n" ] && . $IP_DOWN_DIR/$n
+            [ -x "$IP_DOWN_DIR/$n" ] && . $IP_DOWN_DIR/$n $old_ip
             # Call up script
-            [ -x "$IP_UP_DIR/$n" ] && . $IP_UP_DIR/$n
+            [ -x "$IP_UP_DIR/$n" ] && . $IP_UP_DIR/$n $curr_ip
             echo $curr_ip > $magic_file
         fi
     fi
